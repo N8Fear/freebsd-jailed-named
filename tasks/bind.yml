@@ -1,0 +1,63 @@
+---
+- name: Install named
+  pkgng:
+    name: 'bind914'
+    state: present
+    chroot: '{{ jail_home.stdout }}'
+  register: pkg_result
+  until: pkg_result is succeeded
+
+- name: Create zone directory
+  file:
+    path: '{{ jail_home.stdout }}/usr/local/etc/namedb/zones'
+    owner: bind
+    group: bind
+    mode: 0700
+    state: directory
+
+- name: Create log directory
+  file:
+    path: '{{ jail_home.stdout }}/var/log/named'
+    owner: bind
+    group: bind
+    mode: 0700
+    state: directory
+
+- name: Create cache directory
+  file:
+    path: '{{ jail_home.stdout }}/var/cache/bind'
+    owner: bind
+    group: bind
+    mode: 0700
+    state: directory
+
+- name: Create dnssec key directory
+  file:
+    path: '{{ jail_home.stdout }}/usr/local/etc/namedb/keys'
+    owner: root
+    group: bind
+    mode: 0750
+    state: directory
+
+- name: Copy named configuration
+  template:
+    backup: '{{ jail_backup_old_files }}'
+    src: '{{ item }}.j2'
+    dest: '{{ jail_home.stdout }}/usr/local/etc/namedb/{{ item }}'
+    owner: root
+    group: wheel
+    mode: 0644
+  with_items:
+    - named.conf
+    - named.conf.local
+    - named.conf.options
+  notify: Reload jail s named
+
+- name: Add cron job for dnssec
+  template:
+    src: dnssec.j2
+    dest: '{{ jail_home.stdout }}/etc/periodic/weekly/dnssec'
+    owner: root
+    group: wheel
+    mode: 0700
+  tags: bind

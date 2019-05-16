@@ -1,0 +1,23 @@
+---
+galaxy_info:
+  author: Hinnerk van Bruinehsen
+  description: Provides a jailed named server.
+  license: BSD
+  min_ansible_version: 2.7.0
+  platforms:
+    - name: FreeBSD
+      versions:
+        - 11.2
+        - 12.0
+  galaxy_tags:
+    - cloud
+    - ec2
+    - freebsd
+    - iocage
+    - jails
+    - named
+    - system
+    - bind
+allow_duplicates: true
+dependencies:
+    - { role: 'JoergFiedler.freebsd-jailed', tags: ['named'] }

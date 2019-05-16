@@ -1,0 +1,11 @@
+---
+# defaults file for jailed_named
+
+named_syslogd_server: '{{ syslogd_server | default("localhost") }}'
+named_tarsnap_enabled: '{{ tarsnap_enabled | default("no") }}'
+
+bind_role: master
+bind_listen_ipv4: true
+bind_listen_ipv6: true
+bind_options: {}
+bind_dnssec: {}

@@ -1,0 +1,17 @@
+#- import_task: bind.yml
+#  tags: 
+#   - named
+#
+#- import_task: keys.yml
+#  tags: bind
+#
+#- import_task: zones.yml
+#  tags: bind
+#
+- name: Enable named service
+  lineinfile:
+    backup: '{{ jail_backup_old_files }}'
+    dest: '{{ jail_home.stdout }}/etc/rc.conf'
+    state: present
+    regexp: '^named_enable='
+    line: 'named_enable="YES"'

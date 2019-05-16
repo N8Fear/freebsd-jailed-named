@@ -1,0 +1,16 @@
+---
+# handlers file for jailed_named
+- name: Reload jail s syslogd
+  command: |
+    /usr/local/bin/iocage exec {{ jail_name }} service syslogd reload
+  when: jail_created is defined and not jail_created is changed
+
+- name: Reload jail s named
+  command: |
+    /usr/local/bin/iocage exec {{ jail_name }} service named reload
+    when: jail_created is defined and not jail_created is changed
+
+- name: Reload jail s sshd
+  command: |
+    /usr/local/bin/iocage exec {{ jail_name }} service sshd reload
+  when: jail_created is defined and not jail_created is changed

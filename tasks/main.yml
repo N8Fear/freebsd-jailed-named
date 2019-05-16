@@ -1,0 +1,20 @@
+---
+- include_tasks: pf.yml
+  tags:
+    - named
+
+- import_tasks: bind.yml
+  tags:
+    - named
+
+- import_tasks: keys.yml
+  tags:
+    - named
+
+- import_tasks: zones.yml
+  tags:
+    - named
+
+- import_tasks: named.yml
+  tags:
+    - named
