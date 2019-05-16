@@ -1,5 +1,5 @@
 ---
-# vars file for jailed_nginx
+# vars file for jailed_named
 server_home: '/srv/{{ server_name }}'
 server_home_host_zfs_dataset: '{{ host_zfs_www_dataset }}/{{ server_name }}'
 server_home_host_zfs_dir: '{{ host_zfs_www_dir }}/{{ server_name }}'
