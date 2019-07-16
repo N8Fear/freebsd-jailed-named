@@ -16,6 +16,8 @@ $TTL	{{ item.value.ttl|default(3600) }}
 {{ record.name }} {{ record.ttl|default(' ') }} IN SRV {{ record.priority }} {{ record.weight }} {{ record.port }} {{ record.value }}
 {% elif record.type|upper == 'CAA' %}
 {{ record.name }} {{ record.ttl|default(' ') }} CAA {{ record.flag }} {{ record.tag }} "{{ record.value }}"
+{% elif record.type|upper == 'SSHFP' %}
+{{ record.name }} {{ record.ttl|default(' ') }} IN SSHFP {{ record.alg }} {{ record.hashalg }} {{ record.fingerprint }}
 {% elif record.type|upper == 'TXT' %}
 {{ record.name }} {{ record.ttl|default(' ') }} IN TXT (
 {% for charset in record.value|batch(64) %}
