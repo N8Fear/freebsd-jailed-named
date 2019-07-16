@@ -4,7 +4,7 @@
 cd /usr/local/etc/namedb/keys
 
 {%for zone in bind_dnssec %}
-dnssec-signzone -3 $(head -n 1000 /dev/urandom | sha1sum | cut -b 1-16) -A -N INCREMENT -o {{ zone }} -t /etc/bind/zones/{{ zone }}/db
+dnssec-signzone -3 $(head -n 1000 /dev/urandom | sha1 | cut -b 1-16) -A -N INCREMENT -o {{ zone }} -t /usr/local/etc/namedb/zones/{{ zone }}/db
 {% endfor %}
 
 service named reload

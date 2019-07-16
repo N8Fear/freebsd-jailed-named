@@ -20,4 +20,4 @@ galaxy_info:
     - bind
 allow_duplicates: true
 dependencies:
-    - { role: 'JoergFiedler.freebsd-jailed', tags: ['named'] }
+    - { role: 'nj0rd.freebsd-jailed', tags: ['named'] }
